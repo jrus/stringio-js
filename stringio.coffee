@@ -216,8 +216,6 @@ _test = ->
         'Okay, here are some lines\n'
         'of text.\n'
         ]
-
-    print lines    
     f = new StringIO()
     for line in lines.slice 0, -2
         f.write line

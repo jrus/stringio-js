@@ -48,6 +48,7 @@ class StringIO
             @closed = true
             delete @buf
             delete @pos
+        return
 
     _flush_buflist: ->
         @buf += @buflist.join ''
@@ -150,6 +151,7 @@ class StringIO
             @pos = size
         @buf = @getvalue().slice 0, size
         @length = size
+        return
 
     ### Write a string to the file.
 
@@ -157,7 +159,7 @@ class StringIO
     write: (s) ->
         _complain_ifclosed @closed
         return unless s
-        # Force s to be a string or unicode
+        # Force s to be a string
         unless typeof s == 'string'
             s = s.toString()
         spos = @pos
@@ -196,8 +198,8 @@ class StringIO
 
     ### Flush the internal buffer ###
     flush: ->
-        _complain_ifclosed(self.closed)
-        # basically a no-op
+        _complain_ifclosed @closed
+        return  # basically a no-op
 
     ### Retrieve the entire contents of the "file" at any time
     before the StringIO object's close() method is called. ###
@@ -223,7 +225,7 @@ _test = ->
         'Okay, here are some lines\n'
         'of text.\n'
         ]
-    f = new StringIO()
+    f = new StringIO
     for line in lines.slice 0, -2
         f.write line
     f.writelines lines.slice -2

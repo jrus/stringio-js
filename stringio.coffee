@@ -238,16 +238,13 @@ _test = ->
     if line != line2
         throw new Error 'bad result after seek back'
     f.seek -line2.length, 1
-    print 'yohoho'
     list = f.readlines()
-    print list, f.pos
     line = list[list.length - 1]
-    print "Position = #{f.tell()}"
     f.seek f.tell() - line.length
     line2 = f.read()
     if line != line2
         throw new Error 'bad result after seek back from EOF'
-    print "Read #{list.length} more lines'"
+    print "Read #{list.length} more lines"
     print "File length = #{f.tell()}"
     if f.tell() != length
         throw new Error 'bad length'

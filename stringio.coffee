@@ -206,6 +206,13 @@ class StringIO
         @buf
 
 
+module_root =
+    if exports? then exports
+    else if window? then window
+    else this
+module_root.StringIO = StringIO
+
+
 # A little test suite
 _test = ->
     print = -> console.log arguments...
